@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="blog-container">
+    <h2 class="blog-title">ფილმების ბლოგი</h2>
+
+    {% for film in films %}
+    <div class="movie-card">
+        <h3>{{ film.title }}</h3>
+        
+        <div id="comments-{{ film.id }}" class="comments-list">
+            {% for comment in film.comments.all %}
+                <div class="comment-item">
+                    <div>
+                        <strong>{{ comment.author.username }}</strong>: {{ comment.text }}
+                    </div>
+                    {% if request.user == comment.author %}
+                        <a href="{% url 'delete_comment' comment.id %}#comments-{{ film.id }}" class="delete-btn-blog">🗑️ წაშლა</a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="no-comments">კომენტარები არ არის. იყავი პირველი!</p>
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <form method="POST" class="comment-form">
+            {% csrf_token %}
+            <input type="hidden" name="film_id" value="{{ film.id }}">
+            <textarea name="text" required placeholder="დაწერე შენი აზრი..."></textarea>
+            <button type="submit" class="submit-btn">გაგზავნა</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    /* Responsive Container */
+    .blog-container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    .blog-title { color: white; margin-bottom: 30px; text-align: center; }
+    
+    .movie-card { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 25px; color: white; }
+    
+    .comment-item { background: #334155; padding: 12px; margin: 8px 0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    
+    .comment-form textarea { width: 100%; padding: 12px; border-radius: 6px; border: none; background: #0f172a; color: white; box-sizing: border-box; }
+    
+    .submit-btn { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 10px; width: 100%; }
+
+    .delete-btn-blog { color: #ef4444; text-decoration: none; font-size: 0.8em; font-weight: bold; margin-left: 10px; }
+    
+    .no-comments { color: #64748b; font-size: 0.9em; }
+
+    /* მობილურისთვის */
+    @media (max-width: 600px) {
+        .blog-container { padding: 0 10px; }
+        .comment-item { flex-direction: column; align-items: flex-start; }
+        .delete-btn-blog { margin-top: 8px; }
+    }
+</style>
+{% endblock %}

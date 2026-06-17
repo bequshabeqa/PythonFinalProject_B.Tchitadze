@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Movie Library</title>
+    <style>
+        /* 1. ძირითადი სტრუქტურა */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* ძალიან მნიშვნელოვანია! */
+}
+
+/* 2. სურათების და ვიდეოების მოქნილობა */
+img, textarea, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 3. ფილმების ბარათების მოქნილი ბადე (Grid) */
+.movies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* 4. მობილურის ადაპტაცია */
+@media (max-width: 600px) {
+    .movie-card {
+        padding: 15px !important;
+    }
+    
+    h1 { font-size: 1.5rem; }
+    
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+        /* Modern Base Styles */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a; /* Sleek dark cinematic background */
+            color: #f8fafc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 🌐 ზედა ნავიგაციის ბარი (Navbar) */
+        .navbar {
+            background-color: #1e293b;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0; 
+            z-index: 1000;
+
+            background-color:#1e293b;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3)
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .admin-badge {
+    background-color: rgba(251, 191, 36, 0.1); /* გამჭვირვალე ოქროსფერი ფონი */
+    color: #fbbf24;
+    padding: 6px 12px;
+    border-radius: 20px; /* მომრგვალებული ფორმა */
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #fbbf24;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.admin-badge:hover {
+    background-color: #fbbf24;
+    color: #0f172a; /* ჰოვერზე ფერების ინვერსია */
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+        .welcome-msg {
+            color: #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        /* კონტენტის ძირითადი კონტეინერი */
+        .main-content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #38bdf8;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 🗂️ კატეგორიების სტილები (ჰორიზონტალური მენიუ) */
+        .category-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: #1e293b;
+            color: #94a3b8;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid #334155;
+            transition: all 0.2s ease;
+        }
+
+        .category-btn:hover {
+            border-color: #38bdf8;
+            color: #fff;
+        }
+
+        .category-btn.active {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border-color: #38bdf8;
+            font-weight: bold;
+        }
+
+        /* ❤️ მოწონებული ფილმების სექციის სტილები */
+        .liked-movies-container {
+            background-color: #1e293b;
+            border: 1px solid #e11d48;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        .liked-title {
+            color: #f1f5f9;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .liked-movies-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .liked-movie-card {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 250px;
+            flex: 1;
+            max-width: 350px;
+            transition: transform 0.2s;
+        }
+
+        .liked-movie-card:hover {
+            transform: translateY(-2px);
+            border-color: #e11d48;
+        }
+
+        .liked-movie-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .liked-movie-link {
+            color: #f8fafc !important;
+            text-decoration: none !important;
+            font-weight: 500;
+        }
+
+        .liked-movie-link:hover {
+            color: #38bdf8 !important;
+        }
+
+        .liked-movie-rate {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        /* 🎬 ფილმების ქარდების Grid სისტემა */
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .movie-card {
+            background-color: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #334155;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border-color: #38bdf8;
+        }
+
+        .movie-title {
+            font-size: 1.4rem;
+            margin: 0 0 10px 0;
+            color: #ffffff;
+        }
+
+        .movie-description {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .movie-meta {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .movie-rating {
+            display: inline-block;
+            background-color: #fbbf24;
+            color: #0f172a;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            align-self: flex-start;
+        }
+
+        .watch-btn {
+            display: block;
+            text-align: center;
+            background-color: #38bdf8;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+            margin-top: auto;
+        }
+
+        .watch-btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* 🔑 ავტორიზაციის (Login) ფორმის სტილები */
+        .auth-container {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+            color: #f8fafc;
+        }
+
+        .auth-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #38bdf8;
+        }
+
+        .auth-container p input {
+            width: 100%;
+            padding: 10px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #fff;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+
+        .auth-btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* 📄 პაგინაციის სტილები */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+   <nav class="navbar">
+    <a href="{% url 'home' %}" class="navbar-brand">🎬 BEKA'S MOVIES</a>
+    
+    <div class="nav-links">
+        <a href="{% url 'home' %}" class="nav-link">მთავარი</a>
+        <a href="{% url 'blog' %}" class="nav-link">ბლოგი</a>
+        <a href="{% url 'contact' %}" class="nav-link">კონტაქტი</a>
+
+
+        {% if user.is_authenticated %}
+            <span class="welcome-msg">👋 {{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="nav-link" style="color: #e11d48;">გასვლა</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-link">შესვლა</a>
+            <a href="{% url 'register' %}" class="nav-link">რეგისტრაცია</a>
+        {% endif %}
+        {% if user.is_staff %}
+            <a href="/admin/" class="admin-badge">⚡ Admin Panel</a>
+        {% endif %}
+    </div>
+        
+</nav>
+
+
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer style="text-align: center; padding: 40px 0; color: #64748b; border-top: 1px solid #1e293b;">
+        &copy; 2026 BEKA'S Movie Library. All rights reserved.
+    </footer>
+</body>
+</html>

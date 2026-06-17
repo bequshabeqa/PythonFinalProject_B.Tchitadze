@@ -1,0 +1,466 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.title }}</title>
+</head>
+<body>
+
+    <div>
+        {{pk}}
+        <h1>{{ product.title }}</h1>
+        <p>{{ product.description }}</p>
+        <p>Release Date: {{ product.release_date }}</p>
+        <p>Rating: {{ product.rate }} /10</p>
+        <p>Comments: {{ product.comment }}</p>
+    </div>
+
+</body>
+</html> -->
+
+
+<!-- 
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - Details</title>
+    <style>
+        /* Modern Base Styles matching the Home Page */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a; /* Deep cinematic dark background */
+            color: #f8fafc;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        /* Main Content Wrapper */
+        .detail-wrapper {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Navigation Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #0ea5e9;
+        }
+
+        /* Elegant Movie Detail Card */
+        .movie-detail-card {
+            background-color: #1e293b; /* Premium slate color */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        /* Subtle ID Badge for PK */
+        .movie-id-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background-color: #334155;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        .movie-title {
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+            color: #ffffff;
+            max-width: 85%; /* Prevents text clashing with ID badge */
+        }
+
+        .movie-meta {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Rating Badge */
+        .movie-rating {
+            background-color: #fbbf24; /* Gold */
+            color: #0f172a;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .release-date {
+            color: #64748b;
+        }
+
+        /* Section Dividers */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #334155;
+            margin: 30px 0;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .movie-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        /* Styled Comments Box */
+        .comments-box {
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="detail-wrapper">
+        <a href="/" class="back-link">← Back to Movies</a>
+
+        <div class="movie-detail-card">
+            <span class="movie-id-badge">ID: {{ pk }}</span>
+
+            <h1 class="movie-title">{{ product.title }}</h1>
+            
+            <div class="movie-meta">
+                <span class="movie-rating">★ {{ product.rate }} / 10</span>
+                <span class="release-date">Released: {{ product.release_date }}</span>
+            </div>
+
+            <hr>
+
+            <div class="section-title">Short Description</div>
+            <p class="movie-description">{{ product.description }}</p>
+
+            <hr>
+
+            <div class="section-title">User Comments</div>
+            <div class="comments-box">
+                {% if product.comment %}
+                    "{{ product.comment }}"
+                {% else %}
+                    <span style="color: #64748b; font-style: normal;">No comments yet for this film.</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - Details</title>
+    <style>
+        /* Modern Base Styles matching the Home Page */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a; /* Deep cinematic dark background */
+            color: #f8fafc;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        /* Main Content Wrapper */
+        .detail-wrapper {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Navigation Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #0ea5e9;
+        }
+
+        /* Elegant Movie Detail Card */
+        .movie-detail-card {
+            background-color: #1e293b; /* Premium slate color */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        /* Subtle ID Badge for PK */
+        .movie-id-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background-color: #334155;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        .movie-title {
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+            color: #ffffff;
+            max-width: 85%; /* Prevents text clashing with ID badge */
+        }
+
+        .movie-meta {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Rating Badge */
+        .movie-rating {
+            background-color: #fbbf24; /* Gold */
+            color: #0f172a;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .release-date {
+            color: #64748b;
+        }
+
+        /* Section Dividers */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #334155;
+            margin: 30px 0;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .movie-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        /* --- STYLING FOR NEW COMMENTS SETUP --- */
+        .comment-item {
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .comment-text {
+            line-height: 1.5;
+        }
+
+        /* Red Delete Button */
+        .delete-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .delete-btn:hover { 
+            background-color: #dc2626; 
+        }
+
+        /* Comment Input Box Form */
+        .comment-form textarea {
+            width: 100%;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            padding: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        .submit-btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover { 
+            background-color: #0ea5e9; 
+        }
+        
+        .login-prompt {
+            color: #64748b;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="detail-wrapper">
+        <a href="/" class="back-link">← Back to Movies</a>
+
+        <div class="movie-detail-card">
+            <span class="movie-id-badge">ID: {{ pk }}</span>
+
+            <h1 class="movie-title">{{ product.title }}</h1>
+        
+            <span>Link: <a href="{{ product.link }}" target="_blank" rel="noopener noreferrer">Watch Now</a></span>
+            
+            <hr> 
+
+            <div class="movie-meta">
+                <span class="movie-rating">★ {{ product.rate }} / 10</span>
+                <span class="release-date">Released: {{ product.release_date }}</span>
+            </div>
+
+            <hr>
+
+            <div class="section-title">Short Description</div>
+            <p class="movie-description">{{ product.description }}</p>
+
+            <hr>
+
+            <div class="section-title">Add a Comment</div>
+            {% if request.user.is_authenticated %}
+                <form method="POST" class="comment-form">
+                    {% csrf_token %}
+                    <textarea name="comment_text" rows="3" placeholder="Share your thoughts on this film..." required></textarea>
+                    <button type="submit" class="submit-btn">Post Comment</button>
+                </form>
+            {% else %}
+                <p class="login-prompt">Please log in to add a comment.</p>
+            {% endif %}
+
+            <hr>
+
+            <div class="section-title">User's Comments</div>
+            <div class="comments-container">
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="comment-item">
+                            <div>
+                                <div class="comment-author">@{{ comment.author.username }}</div>
+                                <div class="comment-text">"{{ comment.text }}"</div>
+                            </div>
+                            
+                            {% if comment.author == request.user %}
+                                <a href="{% url 'delete_comment' comment.id %}" 
+                                class="delete-btn" 
+                                onclick="return confirm('Are you sure?');">Delete</a>                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <span style="color: #64748b;">No comments yet for this film. Be the first!</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
