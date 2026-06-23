@@ -353,27 +353,27 @@ img, textarea, video {
     </style>
 </head>
 <body>
-   <nav class="navbar">
+<nav class="navbar">
     <a href="{% url 'home' %}" class="navbar-brand">🎬 BEKA'S MOVIES</a>
     
     <div class="nav-links">
-        <a href="{% url 'home' %}" class="nav-link">მთავარი</a>
-        <a href="{% url 'blog' %}" class="nav-link">ბლოგი</a>
-        <a href="{% url 'contact' %}" class="nav-link">კონტაქტი</a>
-
-
         {% if user.is_authenticated %}
+            <a href="{% url 'home' %}" class="nav-link">მთავარი</a>
+            <a href="{% url 'blog' %}" class="nav-link">ბლოგი</a>
+            <a href="{% url 'contact' %}" class="nav-link">კონტაქტი</a>
+            
             <span class="welcome-msg">👋 {{ user.username }}</span>
             <a href="{% url 'logout' %}" class="nav-link" style="color: #e11d48;">გასვლა</a>
+            
+            {% if user.is_staff %}
+                <a href="/admin/" class="admin-badge">⚡ Admin Panel</a>
+            {% endif %}
+            
         {% else %}
             <a href="{% url 'login' %}" class="nav-link">შესვლა</a>
             <a href="{% url 'register' %}" class="nav-link">რეგისტრაცია</a>
         {% endif %}
-        {% if user.is_staff %}
-            <a href="/admin/" class="admin-badge">⚡ Admin Panel</a>
-        {% endif %}
     </div>
-        
 </nav>
 
 

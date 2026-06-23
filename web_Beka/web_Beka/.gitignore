@@ -1,0 +1,22 @@
+# Python-ის კომპილირებული / ოპტიმიზებული ფაილები
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-ს მონაცემთა ბაზა
+*.sqlite3
+db.sqlite3
+
+# ვირტუალური გარემოები (uv, venv და ა.შ.)
+.venv/
+env/
+venv/
+ENV/
+
+# გარემოს ცვლადები
+.env
+.env.local
+
+# OS გენერირებული ფაილები
+.DS_Store
+Thumbs.db
